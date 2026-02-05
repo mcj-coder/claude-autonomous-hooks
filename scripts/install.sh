@@ -6,6 +6,26 @@ echo "Installing Claude Autonomous Hooks..."
 # Detect project root (look for .git or package.json or similar)
 find_project_root() {
   local current_dir="$PWD"
+  local repo_root_dir=""
+
+  # First check if we're inside the claude-autonomous-hooks repo itself
+  # by looking for the marker file
+  while [ "$current_dir" != "/" ]; do
+    if [ -f "$current_dir/.claude-autonomous-hooks-name" ]; then
+      repo_root_dir="$current_dir"
+      break
+    fi
+    current_dir="$(dirname "$current_dir")"
+  done
+
+  # If we found the repo root, use its parent as the project root
+  if [ -n "$repo_root_dir" ]; then
+    echo "$(dirname "$repo_root_dir")"
+    return 0
+  fi
+
+  # Otherwise, use standard logic
+  current_dir="$PWD"
   while [ "$current_dir" != "/" ]; do
     if [ -d "$current_dir/.git" ] || [ -f "$current_dir/package.json" ] || [ -f "$current_dir/.claude/settings.json" ]; then
       echo "$current_dir"
@@ -13,6 +33,7 @@ find_project_root() {
     fi
     current_dir="$(dirname "$current_dir")"
   done
+
   # Fallback to current directory
   echo "$PWD"
 }

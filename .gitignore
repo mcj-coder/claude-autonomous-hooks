@@ -17,3 +17,6 @@ Thumbs.db
 # Claude state (optional - remove if you want to track state)
 .claude/state/
 .claude/transient-artifacts.json
+
+# Marker file (internal use only)
+.claude-autonomous-hooks-name
