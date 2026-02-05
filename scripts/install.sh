@@ -18,7 +18,7 @@ find_project_root() {
 }
 
 # Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd")"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 
 # Find project root
@@ -46,15 +46,15 @@ mkdir -p "$PROJECT_ROOT/.claude/state"
 SETTINGS_FILE="$PROJECT_ROOT/.claude/settings.json"
 if [ -f "$SETTINGS_FILE" ]; then
   echo ""
-  echo "⚠️  You already have a .claude/settings.json"
-  echo "   Please manually merge the hooks configuration from docs/CONFIGURATION.md"
+  echo "WARNING: You already have a .claude/settings.json"
+  echo "  Please manually merge the hooks configuration from docs/CONFIGURATION.md"
   echo ""
-  echo "   You'll need to add these hook configurations to your existing settings.json:"
+  echo "  You'll need to add these hook configurations to your existing settings.json:"
   echo ""
-  echo '   "PreToolUse": [{"matcher": "Task", "hooks": [{"type": "command", "command": "node .claude/hooks/PreToolUse.cjs"}]}]'
-  echo '   "PostTask": [{"matcher": "Task", "hooks": [{"type": "command", "command": "node .claude/hooks/PostTask.cjs"}]}]'
-  echo '   "PreEdit": [{"matcher": "Edit", "hooks": [{"type": "command", "command": "node .claude/hooks/PreEdit.cjs"}]}]'
-  echo '   "PostWrite": [{"matcher": "Write", "hooks": [{"type": "command", "command": "node .claude/hooks/ArtifactTracker.cjs"}]}]'
+  echo '  "PreToolUse": [{"matcher": "Task", "hooks": [{"type": "command", "command": "node .claude/hooks/PreToolUse.cjs"}]}]'
+  echo '  "PostTask": [{"matcher": "Task", "hooks": [{"type": "command", "command": "node .claude/hooks/PostTask.cjs"}]}]'
+  echo '  "PreEdit": [{"matcher": "Edit", "hooks": [{"type": "command", "command": "node .claude/hooks/PreEdit.cjs"}]}]'
+  echo '  "PostWrite": [{"matcher": "Write", "hooks": [{"type": "command", "command": "node .claude/hooks/ArtifactTracker.cjs"}]}]'
 else
   # Create new settings.json
   cat > "$SETTINGS_FILE" << 'EOF'
@@ -79,17 +79,17 @@ else
   }
 }
 EOF
-echo "✅ Created .claude/settings.json"
+  echo "[OK] Created .claude/settings.json"
 fi
 
 echo ""
-echo "✅ Hooks installed!"
+echo "[OK] Hooks installed!"
 echo ""
 echo "Installed hooks:"
-echo "  • PreToolUse.cjs  - Quality gate enforcement"
-echo "  • PostTask.cjs    - Code review + git + plan checks"
-echo "  • PreEdit.cjs     - VERBATIM protection"
-echo "  • ArtifactTracker.cjs - Script tracking"
+echo "  - PreToolUse.cjs  - Quality gate enforcement"
+echo "  - PostTask.cjs    - Code review + git + plan checks"
+echo "  - PreEdit.cjs     - VERBATIM protection"
+echo "  - ArtifactTracker.cjs - Script tracking"
 echo ""
 echo "Next steps:"
 echo "1. Add templates/CLAUDE-execution-protocol.md to your CLAUDE.md"
