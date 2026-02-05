@@ -79,7 +79,7 @@ else
   }
 }
 EOF
-  echo "✅ Created .claude/settings.json"
+echo "✅ Created .claude/settings.json"
 fi
 
 echo ""
